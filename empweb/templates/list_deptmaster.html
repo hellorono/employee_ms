@@ -1,0 +1,105 @@
+{%extends 'index.html'%}
+
+
+{%block body_block%}
+
+
+
+
+
+
+<div class="container">
+
+    <div class="text-right">
+    <a href="{%url 'add-deptmaster'%}"><button type="button" class="btn btn-info">ADD</button></a>
+
+    
+
+    </div>
+    </div>
+    
+    
+    
+    
+    <div class="row">
+        <div class="col-1"></div>
+        <div class="col-10">
+    
+    
+            
+        <table class="table table-bordered " id="table">
+        <thead >
+            <tr>
+                <th>id</th>
+                <th>Name</th>
+                <th>Description</th>
+                <th>created by </th>
+                <th>created at date</th>
+                <th>updated  by </th>
+                <th>updated  at </th>
+                <th>update</th>
+                <th>delete</th>
+            </tr>
+        </thead>
+    
+        <tbody>
+            {%for d in data%}
+            <tr>
+                <td>{{d.department_id}}</td>
+                <td>{{d.department_name}}</td>
+                <td>{{d.description}}</td>
+                <td>{{d.created_by_user.username}}</td>
+                <td>{{d.created_at_date}}</td>
+                <td>{{d.updated_by_user.username}}</td>
+                <td>{{d.updated_by_date}}</td>
+    
+    
+                <td>
+                    
+                    <a href="{%url 'update' d.department_id%}"><button type="submit" class="btn btn-dark">Update</button></a>
+
+                </td>
+    
+                <td>
+    
+    
+    
+                   
+    <button type="button"  value="Yes" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal-{{ d.department_id }}">
+        Delete
+      </button>
+    
+    
+      
+      <!-- Modal -->
+      <div class="modal fade" id="exampleModal-{{ d.department_id }}" tabindex="-1" aria-labelledby="exampleModalLabel"  aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h1 class="modal-title fs-5" id="exampleModalLabel">delete</h1>  
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              Are you sure you want to delete
+            </div>
+            <div class="modal-footer">
+            <a href="{%url 'dep_mas_delete' d.department_id%}"><button type="button"class="btn btn-danger">Delete</button></a>
+    
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+    
+    
+            </div>
+          </div>
+        </div>
+      </div>
+    
+                </td>
+            </tr>
+            {%endfor%}
+            </tbody>
+         </table>
+        </div>
+        <div class="col-1"></div>
+    </div>
+    
+{%endblock%}

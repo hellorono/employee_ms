@@ -1,0 +1,105 @@
+{%extends 'index.html'%}
+
+{%block body_block%}
+
+
+
+<div class="row">
+    <div class="col-4"></div>
+    <div class="col-4">
+
+        <h1>ADD DEPT DATA</h1>
+        <style>
+            .hidden{
+                display: none;
+            }
+        </style>
+
+
+        <form action="" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{form.as_p}}
+
+            <h4>subjects</h4>
+            <div id="container-div" class="pt-2">
+
+                {{formset.management_form}}
+                <div id="subject-form-list">
+                {% for form in formset %}
+                
+                    <div class="new_form" id="new_form">
+                    subname {{form.sub_name}}
+                    description  {{form.description}}
+                    </div>
+               
+                </div>
+                {%endfor%}
+                <br>
+            <button id="add-more" type="button" class="btn btn-primary" onclick="addfield(event)">add more</button>
+            <button id="add-more" type="button" class="btn btn-danger" onclick="removeField(event)">remove</button>
+            
+                <br><br>
+
+            </div>
+                <div>
+                <button type="submit" class="btn btn-dark" >save</button>   
+                </div>
+            </form>
+
+    </div>
+    <div class="col-4"></div>
+</div>
+
+<script>
+    const addMoreBtn = document.getElementById("add-more")
+    const totalNewForms=document.getElementById("id_form-TOTAL_FORMS")
+    const currentSubjectsForms=document.getElementsByClassName('new_form')
+
+    addMoreBtn.addEventListener('click',add_new_form)
+     
+    function addfield(event){
+        if (event){
+            event.preventDefault()
+        } 
+        console.log(currentSubjectsForms.length);
+        let div_container = document.querySelector("#subject-form-list");
+        let element_clone = document.querySelector(".new_form").cloneNode(true);
+        let form_count = document.querySelector("#id_form-TOTAL_FORMS");
+        
+        element_clone.querySelector(".sub_name").setAttribute("name", "form-"+form_count.value+"-sub_name");
+        element_clone.querySelector(".sub_name").setAttribute("id", "id_form-"+form_count.value+"-sub_name");
+        element_clone.querySelector(".description").setAttribute("name", "form-"+form_count.value+"-description");
+        element_clone.querySelector(".description").setAttribute("id", "id_form-"+form_count.value+"-description");
+        element_clone.querySelector(".sub_name").value='';
+        element_clone.querySelector(".description").value='';
+        div_container.append(element_clone);
+        ++form_count.value;
+
+    } 
+
+
+    function removeField(event) {
+        if (event) {
+            event.preventDefault();
+        }
+        const div_container = document.querySelector("#subject-form-list");
+        const form_count = document.querySelector("#id_form-TOTAL_FORMS");
+        if (form_count.value > 1) {
+            div_container.removeChild(div_container.lastElementChild);
+            --form_count.value;
+        }
+    }
+
+        const removeBtn = document.createElement("button");
+        removeBtn.textContent = "remove";
+        removeBtn.addEventListener("click", removeField);
+        currentSubjectsForms[currentSubjectsForms.length-1].appendChild(removeBtn);
+    
+</script> 
+{%endblock%}
+
+
+<script>
+
+
+</script>

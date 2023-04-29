@@ -1,0 +1,83 @@
+{%extends 'index.html'%}
+
+
+{%block body_block%}
+
+{%load static%}
+
+
+
+
+
+<div class="row">
+    <div class="col-1"></div>
+    <div class="col-10">
+        
+        <a href="{%url 'add_sub'%}"><button type="button" class="btn btn-info">ADD</button></a>
+
+        <table class="table" id="myTable">
+            <tr>
+                <th>id</th>
+                <th>department name</th>
+                <th>Sub department name</th>
+                <th>Description</th>
+                <th>created by </th>
+                <th>created at date</th>
+                <th>updated by</th>
+                <th>updated by date</th>
+    
+            </tr>
+    
+            {%for d in data%}
+            <tr>
+                <td>{{d.department_id}}</td>
+                <td>{{d.department_name}}</td>
+                <td>{{d.sub_department_name}}</td>
+                <td>{{d.description}}</td>
+                <td>{{d.created_by_user}}</td>
+                <td>{{d.created_at_date}}</td>
+                <td>{{d.updated_by_user}}</td>
+                <td>{{d.updated_by_date}}</td>
+                
+                <td>
+                    
+                    <a href="{%url 'sub_update' d.sub_department_id%}"><button type="submit" class="btn btn-dark">Update</button></a>
+                    <a href="{%url 'sub_delete' d.sub_department_id%}"><button type="submit" class="btn btn-danger">Delete</button></a>
+    
+                </td>
+            </tr>
+            {%endfor%}
+    
+         </table>
+    
+         <div class="pagination">
+            <span class="step-links">
+                {% if data.has_previous %}
+                    <a href="?page=1">&laquo; first</a>
+                    <a href="?page={{ data.previous_page_number }}">previous</a>
+                {% endif %}
+        
+                <span class="current">
+                    Page {{ data.number }} of {{ data.paginator.num_pages }}.
+                </span>
+        
+                {% if data.has_next %}
+                    <a href="?page={{ data.next_page_number }}">next</a>
+                    <a href="?page={{ data.paginator.num_pages }}">last &raquo;</a>
+                {% endif %}
+            </span>
+        </div>
+    
+    </div>
+    <div class="col-10"></div></div>
+   
+    <script>
+
+$(document).ready(function() {
+  $('#myTable').DataTable({
+    pageLength: 2
+  });
+});
+    </script>
+
+{%endblock%}

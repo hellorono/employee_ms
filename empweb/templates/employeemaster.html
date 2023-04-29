@@ -1,0 +1,25 @@
+{%extends 'base.html'%}
+
+{%block body_block%}
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-4"></div>
+        <div class="col-4">
+
+            <h1>Employee master</h1>
+
+ 
+            <a href="{%url 'emp_add'%}"><button type="button" class="btn btn-info">ADD EMPLOYEE</button></a>
+            <a href="{%url 'emp_list'%}"><button type="button" class="btn btn-info">LIST EMPLOYEE</button></a>
+
+
+ 
+
+        </div>
+        <div class="col-4"></div>
+    </div>
+</div>
+
+{%endblock%}

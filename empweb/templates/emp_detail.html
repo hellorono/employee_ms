@@ -1,0 +1,52 @@
+{%extends 'index.html'%}
+
+
+{%block body_block%}
+
+
+{%load static%}
+
+
+<h1>detail view</h1>
+
+<div class="row">
+ <div class="col-4"></div>
+ <div class="col-4">
+
+     
+     <div class="card" style="width: 18rem;">
+       {%if data.photo%}
+         <img src="{{data.photo.url}}" class="card-img-top" alt="...">
+         {%endif%}
+         <div class="card-body">
+           <h5 class="card-title">Emp id:{{data.emp_id}}</h5>
+           <p class="card-text"></p>
+         </div>
+         <ul class="list-group list-group-flush">
+           <li class="list-group-item"></li>
+           <li class="list-group-item"></li>
+           <li class="list-group-item">Name:{{data.name}}</li>
+           <li class="list-group-item">Joined date:{{data.join_date}}</li>
+           <li class="list-group-item">Department:{{data.department}}</li>
+           <li class="list-group-item">Sub Department:{{data.sub_department}}</li>
+           <li class="list-group-item">Created by:{{data.created_by_user}}</li>
+           <li class="list-group-item">Created at:{{data.created_at_date}}</li>
+           <li class="list-group-item">Updated at:{{data.updated_at}}</li>
+           <li class="list-group-item">Emp no:{{data.emp_no}}</li>
+           <li class="list-group-item">Address:{{data.address}}</li>
+           <li class="list-group-item">Emp start date:{{data.emp_start_date}}</li>
+           <li class="list-group-item">Emp end date{{data.emp_end_date}}</li>
+           
+         </ul>
+       </div>
+       
+       
+       
+
+ </div>
+ <div class="col-4"></div>
+</div>
+
+
+
+{%endblock%}

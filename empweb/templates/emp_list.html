@@ -1,0 +1,89 @@
+{%extends 'index.html'%}
+
+
+{%block body_block%}
+
+{%load static%}
+
+
+
+
+<h1>emp list</h1>   
+<div class="text-right">
+<a href="{%url 'emp_add'%}"><button type="button" class="btn btn-info">ADD</button></a>
+</div>
+
+     <div class="row">
+        <div class="col-1"></div>
+        <div class="col-10">
+           
+            <table class="table">
+                <tr>
+            <th>emp id</th>
+            <th>emp no</th>
+            <th>name</th>
+
+            
+
+    
+                </tr>
+        
+                {%for d in employees%}
+                
+                <tr>
+                    <td>{{d.emp_id}}</td>
+                    <td>{{d.emp_no}}</td>
+                    <td>{{d.name}}</td>
+                
+
+                    
+                    <td>
+                        
+                        <a href="{%url 'emp_update' d.emp_id%}"><button type="submit" class="btn btn-dark">Update</button></a>
+                        <a href="{%url 'emp_delete' d.emp_id%}"><button type="submit" class="btn btn-danger">Delete</button></a>
+                        <a href="{%url 'emp_detail' d.emp_id%}"><button type="submit" class="btn btn-info">View</button></a>
+                        
+
+        
+                    </td>
+                </tr>
+                {%endfor%}
+                
+                
+             </table>
+
+             <form  action="{% url 'filter_emp' %}" method="post">
+              {% csrf_token %}
+              <label for="from_date">From date:</label>
+              <input type="date" id="from_date" name="from_date">
+          
+              <label for="to_date">To date:</label>
+              <input type="date" id="to_date" name="to_date">
+          
+              <input type="submit" value="Filter">
+            </form>
+        
+            <a href="{% url 'export_excel'%}" class="btn btn-info">Export</a>
+            
+            
+            <div class="pagination">
+              <span class="step-links">
+                  {% if employees.has_previous %}
+                      <a href="?page=1">&laquo; first</a>
+                      <a href="?page={{ employees.previous_page_number }}">previous</a>
+                  {% endif %}
+          
+                  <span class="current">
+                      Page {{ employees.number }} of {{ employees.paginator.num_pages }}.
+                  </span>
+          
+                  {% if employees.has_next %}
+                      <a href="?page={{ employees.next_page_number }}">next</a>
+                      <a href="?page={{ employees.paginator.num_pages }}">last &raquo;</a>
+                  {% endif %}
+              </span>
+          </div>
+
+
+
+          {%endblock%}
